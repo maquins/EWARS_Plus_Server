@@ -3,11 +3,11 @@ Shiny Dashboard Files for the new EWARS model ewars_Plus
 NB: Please download R-inla zipped package file 'INLA_21.02.23.tar.gz'.This file can be found in the link :https://inla.r-inla-download.org/R/stable/src/contrib/INLA_21.02.23.tar.gz Place the 'INLA_21.02.23.tar.gz' file in the same folder as the shiny App
 
 To publish the dashboard on shinyapps.io you can run the command below in R:
-# Note: This assumes you already have an account in shinyapps.io and configured with rsconnect. If not, create account.
+## Note: This assumes you already have an account in shinyapps.io and configured with rsconnect. If not, create account.
 library(rsconnect)
 
-# app.dir <-"Directory where you saved the downloaded the dashboard scripts"
-# appName<-'dashboard name'
+## app.dir <-"Directory where you saved the downloaded the dashboard scripts"
+## appName<-'dashboard name'
 
   deployApp(
     appDir = app.dir,
@@ -16,7 +16,7 @@ library(rsconnect)
     launch.browser=F
   )
  
-# You can increase the default memory size in shinyapps by running the configuration:
+## You can increase the default memory size in shinyapps by running the configuration:
 
 configureApp(
     appDir = app.dir,
