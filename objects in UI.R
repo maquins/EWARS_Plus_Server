@@ -728,7 +728,7 @@ fluidRow(navbarPage("",
                     
                     dashboad_elements_II,
                     
-                    admin_page,
+                    #admin_page,
                     
                     #dashboad_elements_Risk_mapping,
                     dashboad_elements_New_model,

@@ -100,6 +100,9 @@ inla_cmd<-dplyr::tribble(~var,
 suppressMessages(library(data.table,warn.conflicts =F))
 suppressMessages(library(reportROC,warn.conflicts =F))
 suppressMessages(library(promises,warn.conflicts =F))
+suppressMessages(library(googledrive,warn.conflicts =F))
+suppressMessages(library(googleAuthR,warn.conflicts =F))
+
 suppressMessages(library(future,warn.conflicts =F))
 
 #plan(multisession(workers =2))
@@ -114,6 +117,9 @@ plan(sequential)
   #registerDoParallel(cl)
 #}
 
+drive_auth(path="ewarsupload-3a42544ce9f8.json")
+
+drive_download("ewars_users_DB",overwrite =T)
 
 server<-function(input,output,session) { 
   
@@ -121,11 +127,15 @@ server<-function(input,output,session) {
   #Country_name<-"Sri Lanka"
   
   output$title_txt<-renderUI(tags$h3("Ewars Dashboard +",style="font:cambria"))
-  con <- dbConnect(SQLite(),"users.sqlite")
-  pb<-dbGetQuery(con, "SELECT user_name,password,role FROM users_db")
+  #con <- dbConnect(SQLite(),"users.sqlite")
+  #pb<-dbGetQuery(con, "SELECT user_name,password,role FROM users_db")
+  pb<-read_xlsx("ewars_users_DB.xlsx",sheet="users_Db") %>% 
+    dplyr::select(user_name,password,role)
   #pb<-data.frame(user_name="demo",password="demo_2019",role="admin")
-  pb_dis<-dbGetQuery(con, "SELECT user_name,district_code FROM users_districts")
-  dbDisconnect(con)
+  #pb_dis<-dbGetQuery(con, "SELECT user_name,district_code FROM users_districts")
+  #dbDisconnect(con)
+  pb_dis<-read_xlsx("ewars_users_DB.xlsx",sheet="users_districts") %>% 
+    dplyr::select(user_name,district_code)
   
   login = F
   USER <- reactiveValues(login = login)
